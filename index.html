@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nội dung Thuyết trình: Phần V & Phần VI - Pharmacy Management Website (PMW)</title>
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #0a58ca;
+            --accent-color: #0d9488;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --code-bg: #f1f5f9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+            color: #38bdf8;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #94a3b8;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 8px;
+            margin: 35px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .card h3 {
+            color: #0f172a;
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        .warning-box {
+            background-color: #fff7ed;
+            border-left: 4px solid #ea580c;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8fafc;
+            color: #334155;
+            font-weight: 600;
+        }
+
+        code {
+            background-color: var(--code-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 0.9em;
+            color: #0f172a;
+        }
+
+        .step-tag {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-right: 6px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            header {
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 1.4rem;
+            }
+            .card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>DÀN Ý THUYẾT TRÌNH: PHẦN V & PHẦN VI</h1>
+        <p>Dự án: Pharmacy Management Website (PMW) | Môn: SWD392</p>
+    </header>
+
+    <!-- PHẦN V -->
+    <h2 class="section-title">PHẦN V: IMPLEMENTATION (TRIỂN KHAI HỆ THỐNG)</h2>
+
+    <div class="card">
+        <h3>V.1 Map Architecture to the Structure of the Project (Ánh xạ Kiến trúc vào Cấu trúc Dự án)</h3>
+        
+        <p><strong>1. Tổng quan mô hình áp dụng:</strong></p>
+        <p>Hệ thống kết hợp giữa mô hình <strong>MVC (Model-View-Controller)</strong> và <strong>Kiến trúc phân lớp (3-Tier Architecture)</strong>:</p>
+        <ul>
+            <li><strong>Presentation Layer (View & Controller):</strong> Xử lý luồng tương tác người dùng, tiếp nhận HTTP Request, quản lý phiên làm việc (<code>HttpSession</code>) và chuyển hướng/hiển thị trang JSP.</li>
+            <li><strong>Business Logic / Service Layer:</strong> Đóng gói toàn bộ quy tắc nghiệp vụ (Business Rules), tính toán tổng tiền, xử lý mã giảm giá, kiểm tra điều kiện mua thuốc và đồng bộ tồn kho.</li>
+            <li><strong>Data Access Layer (DAO):</strong> Chịu trách nhiệm trực tiếp tương tác với CSDL (SQL Server) qua JDBC, cô lập hoàn toàn các câu lệnh SQL khỏi các tầng trên.</li>
+        </ul>
+
+        <p><strong>2. Lý do lựa chọn kiến trúc này:</strong></p>
+        <ul>
+            <li><strong>Separation of Concerns (SoC):</strong> Tách biệt trách nhiệm giúp nhóm Frontend (JSP/CSS/JS) và Backend (Java Servlets/DAO) làm việc độc lập mà không can thiệp vào mã nguồn của nhau.</li>
+            <li><strong>Maintainability & Reusability:</strong> Các hàm trong DAO (như <code>MedicineDAO</code>, <code>VoucherDAO</code>, <code>ImportDAO</code>) có thể tái sử dụng cho nhiều Servlet khác nhau mà không phải viết lại SQL.</li>
+            <li><strong>Team Collaboration:</strong> Dễ dàng phân chia công việc theo từng tầng cho các thành viên trong nhóm dự án.</li>
+        </ul>
+
+        <p><strong>3. Ánh xạ cụ thể vào cấu trúc thư mục (Package Mapping):</strong></p>
+        <ul>
+            <li><code>controllers/</code>: Chứa các Servlet phục vụ tính năng phía người dùng/khách hàng (Client) như xem danh sách thuốc, quản lý giỏ hàng, đặt hàng, đánh giá, chat AI.</li>
+            <li><code>controllers/admin/</code> (hoặc <code>admin_controllers</code>): Chứa các Servlet quản trị dành riêng cho Staff và Admin (nhập kho, quản lý danh mục, đơn hàng, tài khoản nhân viên, báo cáo doanh thu).</li>
+            <li><code>dao/</code>: Chứa các lớp Data Access Object thực thi câu lệnh SQL (<code>PreparedStatement</code>) và ánh xạ dữ liệu <code>ResultSet</code> thành đối tượng Java.</li>
+            <li><code>models/</code>: Chứa các lớp Entity (POJO) biểu diễn cấu trúc bảng CSDL và các DTO để truyền tải dữ liệu giữa các tầng.</li>
+            <li><code>utils/</code>: Các lớp tiện ích hệ thống như <code>DBContext</code> (quản lý kết nối JDBC), <code>HashMD5</code> (bảo mật mật khẩu), <code>EmailUtils</code> (gửi mã OTP/thông báo qua email), <code>GoogleUtils</code> (đăng nhập Google OAuth).</li>
+            <li><code>filters/</code>: Chứa <code>AdminRoute</code> đóng vai trò Bộ lọc an ninh (Security Filter), chặn các truy cập trái phép vào đường dẫn <code>/admin/*</code>.</li>
+            <li><code>webapp/</code>: Tầng giao diện người dùng, phân chia rõ <code>view/admin/</code>, <code>view/client/</code>, <code>view/common/</code> cùng tài nguyên tĩnh <code>assets/</code> (CSS, JS, Hình ảnh).</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h3>V.2 Map Class Diagram and Interaction Diagram to Code (Ánh xạ Sơ đồ Lớp và Sơ đồ Tương tác sang Mã nguồn)</h3>
+        
+        <p><strong>1. Các mẫu thiết kế (Design Patterns) trọng tâm:</strong></p>
+        <ul>
+            <li><strong>MVC & DAO Patterns:</strong> Giúp tách biệt hoàn toàn truy vấn SQL ra khỏi Controller.</li>
+            <li><strong>Service Layer Pattern:</strong> Điển hình như <code>ImportService</code> đóng gói chuỗi giao dịch phức tạp (tạo hóa đơn nhập, tính toán số lượng đơn vị quy đổi, cập nhật tổng tiền và đồng bộ lượng tồn kho).</li>
+        </ul>
+
+        <p><strong>2. Minh họa chi tiết tính năng: Quản lý Mã giảm giá (UC21 - Admin/Create Voucher)</strong></p>
+
+        <div class="highlight-box">
+            <h4>A. Ánh xạ Sơ đồ Lớp (Class Diagram → Code):</h4>
+            <ul>
+                <li><strong>Entity <code>Voucher</code>:</strong> Nằm tại <code>models/Voucher.java</code>, khai báo các trường dữ liệu private (<code>voucherCode</code>, <code>discountValue</code>, <code>startDate</code>, ...), đi kèm getter/setter và constructor.</li>
+                <li><strong>DAO <code>VoucherDAO</code>:</strong> Chứa phương thức <code>addVoucher(Voucher v)</code> trong <code>dao/VoucherDAO.java</code>, sử dụng <code>PreparedStatement</code> với truy vấn <code>INSERT INTO Voucher (...) VALUES (...)</code>.</li>
+                <li><strong>Controller <code>AdminVoucherController</code>:</strong> Khai báo trong <code>controllers/admin/</code>, ánh xạ URL <code>@WebServlet("/admin/voucher-add")</code>, xử lý luồng nhận dữ liệu từ Form (HTTP POST).</li>
+            </ul>
+        </div>
+
+        <div class="highlight-box">
+            <h4>B. Ánh xạ Sơ đồ Tương tác (Sequence Diagram → Code Execution Flow):</h4>
+            <ol>
+                <li><span class="step-tag">Bước 1</span> <strong>Trigger & Request:</strong> Admin điền Form và nhấn nút "Lưu" &rarr; Form gửi yêu cầu HTTP POST tới đường dẫn <code>/admin/voucher-add</code>.</li>
+                <li><span class="step-tag">Bước 2</span> <strong>Authentication Check:</strong> <code>AdminVoucherController.doPost()</code> gọi hàm <code>isAdmin(request)</code>. Nếu không có quyền Admin, hệ thống lập tức ngắt luồng và redirect về <code>/home</code>.</li>
+                <li><span class="step-tag">Bước 3</span> <strong>Data Binding:</strong> Controller đọc dữ liệu từ <code>request.getParameter()</code>, khởi tạo đối tượng <code>Voucher v</code> và gán giá trị tương ứng.</li>
+                <li><span class="step-tag">Bước 4</span> <strong>Database Execution:</strong> Controller gọi <code>voucherDAO.addVoucher(v)</code>. Lớp DAO thực thi <code>ps.executeUpdate() > 0</code> để lưu dữ liệu xuống SQL Server.</li>
+                <li><span class="step-tag">Bước 5</span> <strong>Navigation & Feedback:</strong> Nếu thêm thành công, Controller chuyển hướng <code>response.sendRedirect("vouchers?success=added")</code> để làm mới danh sách. Nếu thất bại, lưu thông báo lỗi vào <code>setAttribute("error", ...)</code> và <code>forward</code> lại trang nhập <code>voucher-add.jsp</code>.</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- PHẦN VI -->
+    <h2 class="section-title">PHẦN VI: APPLYING ALTERNATIVE ARCHITECTURE PATTERNS (ÁNH XẠ CÁC MẪU KIẾN TRÚC THAY THẾ)</h2>
+
+    <div class="card">
+        <h3>VI.1 Applying the Service-Oriented Architecture (SOA) (Ánh xạ Kiến trúc Hướng Dịch vụ)</h3>
+        
+        <div class="warning-box">
+            <h4>1. Đặt vấn đề: Hạn chế của Kiến trúc Nguyên khối (Monolithic Bottlenecks)</h4>
+            <ul>
+                <li><strong>NFR-01 (Tính tái sử dụng thấp):</strong> Các quy tắc nghiệp vụ cốt lõi (tính tổng tiền giỏ hàng, áp mã giảm giá, trừ kho) hiện bị dính liền với Jakarta Servlet và Session JSP. Khi muốn phát triển thêm App di động (iOS/Android) hoặc máy POS bán tại quầy, nhóm phát triển phải viết lại toàn bộ logic từ đầu.</li>
+                <li><strong>NFR-02 (Khả năng mở rộng & Cô lập lỗi kém):</strong> Các tác vụ tốn tài nguyên như <strong>AI Medical Consultation</strong> (gọi API Gemini) và <strong>Báo cáo doanh thu</strong> chạy chung JVM/Thread Pool với luồng <strong>Thanh toán đặt hàng</strong>. Khi lượt hỏi AI tăng đột biến, toàn bộ hệ thống có thể bị treo, làm ngưng trệ việc mua hàng của khách.</li>
+                <li><strong>NFR-03 (Phụ thuộc khi triển khai):</strong> Bất kỳ sửa đổi nhỏ nào (như đổi thuật toán giảm giá) đều bắt buộc phải đóng gói và redeploy toàn bộ file WAR (<code>PharmacyLife.war</code>), gây gián đoạn dịch vụ (Downtime).</li>
+            </ul>
+        </div>
+
+        <p><strong>2. Giải pháp Kiến trúc SOA (SOA-Based Solution):</strong></p>
+        <p>Chia nhỏ hệ thống Monolith thành các Dịch vụ độc lập (Autonomous Services), giao tiếp qua giao thức chuẩn <strong>RESTful APIs (JSON/HTTPS)</strong> và điều phối bởi <strong>API Gateway</strong>.</p>
+        
+        <p><strong>Chi tiết 6 dịch vụ thành phần:</strong></p>
+        <ol>
+            <li><strong>API Gateway:</strong> Điểm tiếp nhận yêu cầu duy nhất, xử lý xác thực tập trung (JWT), phân luồng (Routing), giới hạn băng thông (Rate Limiting) và cân bằng tải.</li>
+            <li><strong>Medicine Catalog Service:</strong> Cung cấp API tra cứu thuốc, danh mục, quy đổi đơn vị và nhóm bệnh.</li>
+            <li><strong>Order Processing Service:</strong> Xử lý giỏ hàng, quy trình thanh toán và tích hợp cổng thanh toán VNPAY.</li>
+            <li><strong>Voucher & Promotion Service:</strong> Tách độc lập để phục vụ tính toán mã giảm giá đồng thời cho Web, App và máy POS.</li>
+            <li><strong>Warehouse & Import Service:</strong> Quản lý nhập kho từ nhà cung cấp, theo dõi lô hàng và tự động đồng bộ tồn kho.</li>
+            <li><strong>AI Consultation Service:</strong> Cách ly hoàn toàn module tư vấn AI với Gemini, tránh gây rủi ro trễ mạng tới luồng bán hàng.</li>
+        </ol>
+    </div>
+
+    <div class="card">
+        <h3>VI.2 Applying Service Discovery Pattern in the SOA (Ánh xạ Mẫu Khám phá Dịch vụ)</h3>
+        
+        <p><strong>1. Nhận diện Vấn đề & Yêu cầu:</strong></p>
+        <ul>
+            <li><strong>NFR-06 (Khả năng mở rộng & Độ khả dụng cao):</strong> Hệ thống cần hỗ trợ tăng/giảm số lượng instance dịch vụ tự động (Dynamic Horizontal Scaling) theo thời gian thực để chịu tải trong các đợt Flash Sale hoặc dịch bệnh.</li>
+            <li><strong>Thách thức Địa chỉ động (Dynamic & Ephemeral Addressing):</strong> Trong môi trường container (Docker/Kubernetes), các instance dịch vụ liên tục được khởi tạo hoặc hủy bỏ, được gán IP và Port động. Việc hardcode IP hoặc sửa file cấu hình thủ công mỗi khi có thay đổi là hoàn toàn bất khả thi.</li>
+        </ul>
+
+        <p><strong>2. Giải pháp Mẫu Khám phá Dịch vụ (Service Discovery Pattern):</strong></p>
+        <p><strong>3 Cơ chế vận hành cốt lõi:</strong></p>
+        <ol>
+            <li><strong>Centralized Service Registry (Sổ đăng ký dịch vụ trung tâm):</strong> Lưu trữ danh bạ thời gian thực gồm Tên dịch vụ (Logical Name: <code>VOUCHER-SERVICE</code>), IP, Port, Trạng thái sức khỏe (Health Status).</li>
+            <li><strong>Self-Registration & Heartbeats:</strong> Khi một instance vừa khởi chạy, nó tự đăng ký tọa độ lên Registry. Cứ mỗi 30 giây, instance phải gửi tín hiệu "Heartbeat". Nếu bị ngắt kết nối/lỗi, Registry sẽ tự động xóa instance đó khỏi danh sách điều hướng.</li>
+            <li><strong>Dynamic Discovery & Client-Side Load Balancing:</strong> Khi <code>Order Service</code> cần gọi <code>Voucher Service</code>, nó hỏi Registry để lấy danh sách các instance khỏe mạnh, sau đó dùng thuật toán Cân bằng tải (Round-Robin) để phân phối yêu cầu.</li>
+        </ol>
+
+        <p><strong>3. Đánh giá & Lựa chọn Công nghệ:</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Công nghệ</th>
+                    <th>Đặc điểm chính</th>
+                    <th>Đánh giá ứng dụng</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Netflix Eureka</strong></td>
+                    <td>Tối ưu cho hệ sinh thái Java/Spring, ưu tiên độ sẵn sàng cao (AP trong định lý CAP). Tích hợp mượt với Spring Cloud Gateway.</td>
+                    <td><strong style="color: #16a34a;">Khuyên dùng cho dự án</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>HashiCorp Consul</strong></td>
+                    <td>Nhất quán cao (CP system với thuật toán Raft), hỗ trợ đa trung tâm dữ liệu và đa ngôn ngữ lập trình.</td>
+                    <td>Phù hợp đa đám mây/đa ngôn ngữ</td>
+                </tr>
+                <tr>
+                    <td><strong>Kubernetes DNS & CoreDNS</strong></td>
+                    <td>Giải pháp khám phá gốc ở cấp độ hạ tầng Container/Kubernetes, tự động quản lý qua IP ảo.</td>
+                    <td>Phù hợp triển khai K8s native</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
